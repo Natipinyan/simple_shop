@@ -6,8 +6,8 @@ const products = [
     ImgURL: "i9.jpeg",
   },
   {
-    Name: "video card",
     Code: 2,
+    Name: "video card",
     price: "2000",
     ImgURL: "VideoCard.jpeg",
   },
@@ -30,8 +30,8 @@ const products = [
     ImgURL: "voice.jpeg",
   },
   {
-    Name: "case",
     Code: 6,
+    Name: "case",
     price: "1000",
     ImgURL: "case.jpeg",
   },

@@ -1,7 +1,7 @@
 import Card from "./Card";
 
-export default function Store({ productsRef }) {
+export default function Store({ products }) {
     return (
-        <Card CardData={productsRef.current} />
+        <Card CardData={products} />
     );
 }

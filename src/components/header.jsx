@@ -19,7 +19,7 @@ export default function Header() {
         <nav style={NavStyle}>
             <div style={LeftLinksStyle}>
                 <Link to="shopingCart">cart</Link>
-                <Link to="/store">home page</Link>
+                <Link to="/">home page</Link>
             </div>
             <Link to="/manager" style={RightLinkStyle}>manager</Link>
         </nav>
