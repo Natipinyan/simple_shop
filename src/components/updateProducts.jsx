@@ -1,11 +1,10 @@
-import { Form, useLoaderData } from "react-router-dom";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import { Form, useLoaderData,useNavigate } from "react-router-dom";
+
 import data from "../Data";
 
 export default function EditProduct({pCodeToSearch,setProductToSearch}) {
     const product = useLoaderData() || {};
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
 
     const styles = {
@@ -55,7 +54,7 @@ export default function EditProduct({pCodeToSearch,setProductToSearch}) {
                     <label style={styles.label}>Name:<input className="form-tag" defaultValue={product.Name} placeholder="name" name="Name" type="text" /></label>
                     <label style={styles.label}>Image:<input className="form-tag" defaultValue={product.ImgURL} placeholder="image" name="ImgURL" type="text" /></label>
                     <label style={styles.label}>Price:<input className="form-tag" defaultValue={product.price} placeholder="price" name="price" type="number" /></label>
-                    <button className="form-tag">ערוך</button>
+                    <button className="form-tag" onClick={e => { navigate("/")}}>ערוך</button>
                 </Form>
             </div>
         </section>

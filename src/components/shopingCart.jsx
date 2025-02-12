@@ -1,12 +1,9 @@
-import {Link} from "react-router-dom";
-export default function ShoppingCart({ cart, setCart, onCheckout }) {
-    // מחיקת מוצר
-    const handleDelete = (id) => {
-        setCart(cart.filter(product => product.Code !== id));
-    };
+import { Link } from "react-router-dom";
+import { useCart } from "../services/cartContext";
 
-    // חישוב סכום
-    const totalPrice = cart.reduce((total, product) => total + parseFloat(product.price), 0);
+export default function ShoppingCart() {
+    const { cart, removeFromCart, cartTotal } = useCart();
+    console.log("Cart:", cart);
 
     return (
         <div style={{ width: "75%", margin: "0 auto", padding: "10%" }}>
@@ -22,18 +19,20 @@ export default function ShoppingCart({ cart, setCart, onCheckout }) {
                 <tbody>
                 {cart.map((product) => (
                     <tr key={product.Code}>
-                        <td><img src={product.ImgURL} alt={product.Name} style={{ width: "50px" }} /></td>
+                        <td>
+                            <img src={product.ImgURL} alt={product.Name} style={{ width: "50px" }} />
+                        </td>
                         <td>{product.Name}</td>
                         <td>${product.price}</td>
                         <td>
-                            <button onClick={() => handleDelete(product.Code)}>Delete</button>
+                            <button onClick={() => removeFromCart(product.Code)}>Delete</button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
             <div style={{ marginTop: "20px", textAlign: "center" }}>
-                <strong>Total: ${totalPrice}</strong>
+                <strong>Total: ${cartTotal()}</strong>
             </div>
             <div style={{ marginTop: "20px", textAlign: "center" }}>
                 <Link className="linkToRegister" to="/payment">עבור לקופה</Link>

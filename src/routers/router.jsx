@@ -1,5 +1,5 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
+import { useState, useEffect,useRef } from "react";
 import data from "../Data";
 import Store from "../components/store";
 import AddProduct from "../components/addProducts";
@@ -8,24 +8,26 @@ import MainLayout from "../layout/MainLayout";
 import Manager from "../components/manager";
 import Update from "../components/updateProducts";
 import Payment from "../components/payment";
-
-
-async function cashRegisterLoader() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-    if (cart.length === 0) {
-
-        return { redirect: "/shopingCart" };
-    }
-
-    return { cart };
-}
-
+import {CartProvider} from "../services/cartContext";
 export default function Router() {
+
+    let refProductsData = useRef(data);
+
     const [products, setProducts] = useState(data);
     const [cart, setCart] = useState([]);
     const [pCodeToSearch, setProductToSearch] = useState("");
 
+    const loadToStore = async () => {
+        if(refProductsData.current === undefined || refProductsData.current.length === 0)
+            return undefined;
+        else
+            return refProductsData.current;
+    };
+
+    /*
+    const loadProductToEdit = async ({ params }) => {
+        return products.find((prod)  => prod.Code == params.Code);
+    };
     const updateProduct = async ({ request }) => {
         const formData = await request.formData();
         const updatedProduct = Object.fromEntries(formData);
@@ -36,11 +38,9 @@ export default function Router() {
                     ? { ...productToChange, ...updatedProduct }
                     : productToChange
             );
-
             return updatedProducts;
         });
     };
-
     const addProduct = async ({ request }) => {
         const formData = await request.formData();
         const newProduct = Object.fromEntries(formData);
@@ -52,10 +52,7 @@ export default function Router() {
             });
         }
     };
-
-    const loadProduct = async ({ params }) => {
-        return products.find((prod) => prod.Code == params.Code);
-    };
+    */
 
     useEffect(() => {
         console.log("Products state after update:", products);
@@ -67,19 +64,19 @@ export default function Router() {
             element: <MainLayout />,
             children: [
                 {
-                    element: <Store products={products} setCart={setCart} />,
+                    element: <Store products={products}  />,
                     index: true,
+                    loader: loadToStore,
                 },
                 {
                     path: "shopingCart",
-                    element: <ShopingCart cart={cart} setCart={setCart} onCheckout={(cart, totalPrice) => setCart(cart)} />,
+                    element: <ShopingCart/>,
                 },
                 {
                     path: "payment",
                     element: <Payment cart={cart} />,
-                    loader: cashRegisterLoader, // הלודר עבור עמוד התשלום
                 },
-                {
+                /*{
                     path: "manager",
                     element: <Manager pCodeToSearch={pCodeToSearch} setProductToSearch={setProductToSearch} />,
                     children: [
@@ -91,14 +88,18 @@ export default function Router() {
                         {
                             path: "edit/:Code?",
                             element: <Update pCodeToSearch={pCodeToSearch} setProductToSearch={setProductToSearch} />,
-                            loader: loadProduct,
+                            loader: loadProductToEdit,
                             action: updateProduct,
                         },
                     ],
-                },
+                },*/
             ],
         },
     ]);
 
-    return <RouterProvider router={router} />;
+    return (
+        <CartProvider>
+            <RouterProvider router={router} />
+        </CartProvider>
+    );
 }

@@ -1,5 +1,6 @@
-import { Form } from "react-router-dom";
+import { Form,useNavigate } from "react-router-dom";
 export default function AddProduct() {
+    const navigate = useNavigate();
     let addStyle = {
         display: "flex",
         alignItems: "center",
@@ -18,7 +19,7 @@ export default function AddProduct() {
             <label>Name:<input  className="form-tag" placeholder="name" name="Name" type="text" required/></label>
             <label>Price:<input  className="form-tag" placeholder="price" name="price" type="number" required/></label>
             <label>Image:<input  className="form-tag" placeholder="image" name="ImgURL" type="text" required/></label>
-            <button className="form-tag">הוסף</button>
+            <button className="form-tag" onClick={e => { navigate("/")}}>הוסף</button>
         </Form>
     );
 }

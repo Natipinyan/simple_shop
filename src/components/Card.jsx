@@ -1,42 +1,50 @@
+import { useState } from "react";
 import "../css/Cards.css";
 import get_URL from "../services/GetURL";
-import { useNavigate } from "react-router-dom";
-import { Form } from "react-router-dom";
+import { useCart } from "../services/cartContext";
 
-export default function Card({ CardData, setCart }) {
+export default function Card({ CardData }) {
     return (
         <div className="allPage">
             <div className="DataContainer">
-                {CardData.map((person) => (
-                    <CreateCard
-                        key={person.Code}
-                        person={person}
-                        setCart={setCart}
-                    />
+                {CardData.map((product) => (
+                    <CreateCard key={product.Code} product={product} />
                 ))}
             </div>
         </div>
     );
 }
 
-function CreateCard({ person, setCart }) {
-    const navigate = useNavigate();
+function CreateCard({ product }) {
+    const { addToCart } = useCart();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const handleAddToCart = (event) => {
         event.preventDefault();
+        addToCart(product);
 
-        setCart((prevCart) => [...prevCart, person]);
+        // Show success message for 3 seconds
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+            setShowSuccessMessage(false);
+        }, 3000);
     };
 
     return (
-        <Form className="DataCardItem" method="post" onSubmit={handleAddToCart}>
-            <img src={get_URL(person.ImgURL)} alt={person.Name} />
-            <b>{person.Code}</b>
-            <b>{person.Name}</b>
-            <b>{person.price}</b>
-            <button id="btAdd" type="submit">
+        <div className="DataCardItem">
+            <img src={get_URL(product.ImgURL)} alt={product.Name} />
+            <b>{product.Code}</b>
+            <b>{product.Name}</b>
+            <b>{product.price}</b>
+            <button id="btAdd" onClick={handleAddToCart}>
                 Add to Cart
             </button>
-        </Form>
+
+            {showSuccessMessage && (
+                <div className="successMessage">
+                    המוצר התווסף בהצלחה
+                </div>
+            )}
+        </div>
     );
 }
