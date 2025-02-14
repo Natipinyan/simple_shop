@@ -1,5 +1,7 @@
 import {Form, Link, redirect} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import "../css/editAndAdd.css";
+
 
 export default function AddProduct() {
     let addStyle = {

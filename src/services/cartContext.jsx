@@ -17,6 +17,7 @@ export function CartProvider({ children }) {
             }
         });
     };
+    //יש מוצר צוסיף סאם אין מחזיר את המוצר
 
     const removeFromCart = (Code) => {
         setCart((prevCart) => {
@@ -25,7 +26,6 @@ export function CartProvider({ children }) {
                     if (item.sum > 1) {
                         newCart.push({ ...item, sum: item.sum - 1 });
                     }
-                    // אם sum == 1 לא דוחפים את הפריט לרשימה החדשה (כלומר הוא נמחק)
                 } else {
                     newCart.push(item);
                 }
@@ -33,10 +33,12 @@ export function CartProvider({ children }) {
             }, []);
         });
     };
+    //אם יש יותר ממוצר אחד פחות מוחק אחד אחרת מוחק את המוצר
 
     const cartTotal = () => {
         return cart.reduce((sum, item) => sum + (Number(item.price) * item.sum), 0);
     };
+    //מחזיר את הסכום של הסל
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, cartTotal }}>
