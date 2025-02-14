@@ -1,62 +1,73 @@
-import { Form, useLoaderData,useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, useLoaderData } from "react-router-dom";
+export default function EditProduct({ products }) {
+    const [currentProduct, setCurrentProduct] = useState({});
+    const [Code, setCode] = useState("");
+    const loadedData = useLoaderData();
 
-import data from "../Data";
+    useEffect(() => {
+        if (loadedData) setCurrentProduct(loadedData);
+    }, [loadedData]);
 
-export default function EditProduct({pCodeToSearch,setProductToSearch}) {
-    const product = useLoaderData() || {};
-    let navigate = useNavigate();
-
-
-    const styles = {
-        allPage: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            gap: "10px",
-            height: "100%",
-            width: "80%"
-        },
-        label: {
-            display: "block",
-            marginBottom: "10px"
-        }
+    const handleChanges = (e) => {
+        setCurrentProduct((prevProduct) => {
+            return { ...prevProduct, [e.target.name]: e.target.value };
+        });
     };
     const handleSearch = () => {
-        setProductToSearch(pCodeToSearch);
-        navigate("/manager/edit/" + pCodeToSearch);
+        let foundProduct = products.find((prod) => prod.Code == Code);
+        if (foundProduct) setCurrentProduct(foundProduct);
     };
-
-
     return (
-        <section style={styles.allPage}>
-            <div>
-                <div>
-                    <input
-                        value={pCodeToSearch}
-                        onChange={e => setProductToSearch(e.target.value)} // Update pCodeToSearch directly
-                        className="form-tag"
-                        placeholder="product code"
-                        name="Code"
-                        type="search"
-                    />
-                    <button
-                        className="form-tag"
-                        onClick={handleSearch}
-                    >
-                        search
-                    </button>
-                </div>
-
-                <Form method="POST">
-                    <input name="Code" type="hidden" defaultValue={product.Code} />
-                    <label style={styles.label}>Code:<input className="form-tag" defaultValue={product.Code} placeholder="code" name="Code" type="text" /></label>
-                    <label style={styles.label}>Name:<input className="form-tag" defaultValue={product.Name} placeholder="name" name="Name" type="text" /></label>
-                    <label style={styles.label}>Image:<input className="form-tag" defaultValue={product.ImgURL} placeholder="image" name="ImgURL" type="text" /></label>
-                    <label style={styles.label}>Price:<input className="form-tag" defaultValue={product.price} placeholder="price" name="price" type="number" /></label>
-                    <button className="form-tag" onClick={e => { navigate("/")}}>ערוך</button>
-                </Form>
+        <div
+            style={{
+                display: "flex",
+                margin: "auto",
+                flexDirection: "column",
+            }}>
+            <div style={{ margin: "30px" }}>
+                <input
+                    className="form-tag"
+                    value={Code}
+                    onChange={(e) => {
+                        setCode(e.target.value);
+                    }}
+                    placeholder="קוד המוצר"
+                    name="Code"
+                    type="search"
+                />
+                <button className="form-tag" onClick={handleSearch}>
+                    חפש מוצר
+                </button>
             </div>
-        </section>
+            <Form method="POST">
+                <input name="Code" type="disabled" value={currentProduct.Code} />
+                <input
+                    className="form-tag"
+                    value={currentProduct.Name}
+                    onChange={handleChanges}
+                    placeholder="שם המוצר"
+                    name="Name"
+                    type="text"
+                />
+                <input
+                    className="form-tag"
+                    value={currentProduct.ImgURL}
+                    onChange={handleChanges}
+                    placeholder="תמונת המוצר"
+                    name="ImgURL"
+                    type="text"
+                />
+                <input
+                    className="form-tag"
+                    value={currentProduct.price}
+                    onChange={handleChanges}
+                    placeholder="מחיר המוצר"
+                    name="price"
+                    type="number"
+                />
+                <button className="form-tag">ערוך</button>
+            </Form>
+        </div>
     );
 }

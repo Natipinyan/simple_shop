@@ -1,34 +1,33 @@
 import { Outlet, Link } from "react-router-dom";
 import "../css/manager.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-export default function ManagerPage({ pCodeToSearch, setProductToSearch }) {
-    let navigate = useNavigate();
 
-    const handleSearch = () => {
-        setProductToSearch(pCodeToSearch);
-        navigate("/manager/edit/" + pCodeToSearch);
-    };
+
+export default function ManagerPage() {
+
+    const [productCode, setProductCode] = useState("");
 
     return (
         <section className="allPageManager">
-            <p className="left">
-                <section className="top">
+            <div className="left">
+                <div className="top">
                     <Link to="/manager">הוספה</Link>
-                </section>
+                </div>
 
-                <section className="under">
-                    <Link to={`/manager/edit/${pCodeToSearch}`}>עריכה</Link>
+                <div className="under">
+                    <Link to={`/manager/edit/${productCode}`}>עריכה</Link>
                     <input
                         placeholder="קוד מוצר"
-                        defaultValue={pCodeToSearch}
+                        defaultValue={productCode}
                         type="text"
                         onChange={(e) => {
-                            setProductToSearch(e.target.value);
+                            setProductCode(e.target.value);
                         }}
                     />
-                </section>
-            </p>
+                </div>
+            </div>
             <Outlet />
         </section>
     );

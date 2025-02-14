@@ -1,46 +1,25 @@
-import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
-import { useState, useEffect,useRef } from "react";
+import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { useState, useEffect} from "react";
 import data from "../Data";
 import Store from "../components/store";
 import AddProduct from "../components/addProducts";
 import ShopingCart from "../components/shopingCart";
 import MainLayout from "../layout/MainLayout";
 import Manager from "../components/manager";
-import Update from "../components/updateProducts";
 import Payment from "../components/payment";
 import {CartProvider} from "../services/cartContext";
+import {useNavigate} from "react-router-dom";
+import Update from "../components/updateProducts";
+
+
 export default function Router() {
-
-    let refProductsData = useRef(data);
-
-    const [products, setProducts] = useState(data);
-    const [cart, setCart] = useState([]);
-    const [pCodeToSearch, setProductToSearch] = useState("");
+    const [products, setProducts] = useState(data); // רק useState
 
     const loadToStore = async () => {
-        if(refProductsData.current === undefined || refProductsData.current.length === 0)
-            return undefined;
-        else
-            return refProductsData.current;
+        if (products.length === 0) return undefined;
+        else return products;
     };
 
-    /*
-    const loadProductToEdit = async ({ params }) => {
-        return products.find((prod)  => prod.Code == params.Code);
-    };
-    const updateProduct = async ({ request }) => {
-        const formData = await request.formData();
-        const updatedProduct = Object.fromEntries(formData);
-
-        setProducts((prevProducts) => {
-            const updatedProducts = prevProducts.map((productToChange) =>
-                String(productToChange.Code) === String(updatedProduct.Code)
-                    ? { ...productToChange, ...updatedProduct }
-                    : productToChange
-            );
-            return updatedProducts;
-        });
-    };
     const addProduct = async ({ request }) => {
         const formData = await request.formData();
         const newProduct = Object.fromEntries(formData);
@@ -50,10 +29,18 @@ export default function Router() {
                 const updatedProducts = [...prevProducts, newProduct];
                 return updatedProducts;
             });
+
         }
     };
-    */
+    const loadProduct = async ({ params }) => {
+        return products.find((prod) => prod.Code == params.Code);
+    };
+    const submitproduct = async ({request})=> {
+        const formData = await request.formData();
+        const newProduct = Object.fromEntries(formData);
+        setProducts(products.map((product)=>{return product.Code == newProduct.Code ? newProduct: product;}))
 
+    }
     useEffect(() => {
         console.log("Products state after update:", products);
     }, [products]);
@@ -64,21 +51,21 @@ export default function Router() {
             element: <MainLayout />,
             children: [
                 {
-                    element: <Store products={products}  />,
+                    element: <Store products={products} />,
                     index: true,
                     loader: loadToStore,
                 },
                 {
                     path: "shopingCart",
-                    element: <ShopingCart/>,
+                    element: <ShopingCart />,
                 },
                 {
                     path: "payment",
-                    element: <Payment cart={cart} />,
+                    element: <Payment />,
                 },
-                /*{
+                {
                     path: "manager",
-                    element: <Manager pCodeToSearch={pCodeToSearch} setProductToSearch={setProductToSearch} />,
+                    element: <Manager />,
                     children: [
                         {
                             element: <AddProduct />,
@@ -87,12 +74,12 @@ export default function Router() {
                         },
                         {
                             path: "edit/:Code?",
-                            element: <Update pCodeToSearch={pCodeToSearch} setProductToSearch={setProductToSearch} />,
-                            loader: loadProductToEdit,
-                            action: updateProduct,
+                            element: <Update products={products}  />,
+                            loader:loadProduct,
+                            action: submitproduct
                         },
                     ],
-                },*/
+                },
             ],
         },
     ]);
