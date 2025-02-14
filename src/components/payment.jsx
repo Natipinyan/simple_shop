@@ -30,7 +30,7 @@ export default function Payment() {
                 <ul>
                     {cart.map((product) => (
                         <li key={product.Code}>
-                            {product.Name} - ${product.price} x {product.quantity}
+                            {product.Name} - ${product.price} x {product.sum}
                         </li>
                     ))}
                 </ul>

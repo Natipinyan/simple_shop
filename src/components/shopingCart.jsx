@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../services/cartContext";
+import get_URL from "../services/GetURL";
+
 
 export default function ShoppingCart() {
     const { cart, removeFromCart, cartTotal } = useCart();
-    console.log("Cart:", cart);
 
     return (
         <div style={{ width: "75%", margin: "0 auto", padding: "10%" }}>
@@ -13,6 +14,7 @@ export default function ShoppingCart() {
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
+                    <th>Sum</th>
                     <th>Remove</th>
                 </tr>
                 </thead>
@@ -20,10 +22,19 @@ export default function ShoppingCart() {
                 {cart.map((product) => (
                     <tr key={product.Code}>
                         <td>
-                            <img src={product.ImgURL} alt={product.Name} style={{ width: "50px" }} />
+                            <img
+                                src={get_URL(product.ImgURL)}
+                                style={{
+                                    width: "80px",
+                                    height: "80px",
+                                    objectFit: "cover",
+                                    borderRadius: "8px"
+                                }}
+                            />
                         </td>
                         <td>{product.Name}</td>
                         <td>${product.price}</td>
+                        <td>{product.sum}</td>
                         <td>
                             <button onClick={() => removeFromCart(product.Code)}>Delete</button>
                         </td>

@@ -16,12 +16,14 @@ export default function Header() {
     let RightLinkStyle = { marginLeft: "auto" };
 
     return (
-        <nav style={NavStyle}>
+
+            <nav style={NavStyle}>
             <div style={LeftLinksStyle}>
                 <Link to="shopingCart">cart</Link>
                 <Link to="/">home page</Link>
             </div>
             <Link to="/manager" style={RightLinkStyle}>manager</Link>
         </nav>
+
     );
 }
