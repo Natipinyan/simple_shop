@@ -13,13 +13,11 @@ import Update from "../components/updateProducts";
 
 export default function Router() {
     const [products, setProducts] = useState(data);
-    //משתנה שמכיל אתצ המוצרים
 
     const loadToStore = async () => {
         if (products.length === 0) return undefined;
         else return products;
     };
-    //טעינת המוצרים לחנות
 
     const addProduct = async ({ request }) => {
         const formData = await request.formData();
@@ -33,11 +31,10 @@ export default function Router() {
 
         }
     };
-    //מקבלת את המוצרים בריקווסט ממירה לאובייקט אם המוצר תקין מעדכן
+
     const loadProduct = async ({ params }) => {
         return products.find((prod) => prod.Code == params.Code);
     };
-    //מחזירה את המוצר הספציפי לעריכה
 
     const submitproduct = async ({request})=> {
         const formData = await request.formData();
@@ -45,7 +42,7 @@ export default function Router() {
         setProducts(products.map((product)=>{return product.Code == newProduct.Code ? newProduct: product;}))
 
     }
-    //מקבלת את המוצרים ומשנה
+
     /*useEffect(() => {
         console.log("Products state after update:", products);
     }, [products]);*/
@@ -95,23 +92,3 @@ export default function Router() {
         </CartProvider>
     );
 }
-
-// useContext:
-// מאפשר גישה לנתונים ממסגרת או ממשק עליון (context) מבלי להעביר אותם כפרופס לכל רכיב.
-// משמש לשיתוף מידע בין רכיבים ללא צורך בהעברת פרופס ידנית.
-
-// useEffect:
-// משמש להרצת פונקציות לאחר render (כמו componentDidMount או componentDidUpdate).
-// מאפשר ביצוע של פעולות צד-שני (side effects) כמו קריאות API, הגדרות מנויים או מניעת זיכרון ריק.
-// הוא יכול להתבצע לאחר render וגם כשהמצב משתנה.
-
-// useState:
-// משמש לשמירה על מצב מקומי (state) בתוך רכיב.
-// מאפשר לעדכן ערכים במצב ולהגיב לשינויים בו.
-// לדוגמה, ניהול של ערך טקסט בתיבת קלט.
-
-
-// הבדל בין שליחה מתוך ManagerPage לבין שליחה מתוך EditProduct:
-// - ב-ManagerPage, המוצר נטען דרך הראוטר לפי קוד המוצר בכתובת ה-URL.
-// - ב-EditProduct, המוצר נטען דרך חיפוש ידני עם קוד המוצר שהוזן בשדה.
-// - ב-ManagerPage, המוצר מוצג אוטומטית לפי ה-URL, וב-EditProduct יש לבצע חיפוש לפני עריכה.

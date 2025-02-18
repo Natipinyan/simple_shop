@@ -1,90 +1,110 @@
-.allPage{
-    margin: 40px auto;
-    width: 90%;
-    background-color: #e0e4e8;
-    padding: 20px
+.allPage {
+    margin: 30px auto;
+    width: 80%;
 }
+
 .DataContainer {
     display: grid;
-    margin: 10px;
-    background-color: #f0f4f8;
-    grid-gap: 30px;
+    margin: 20px 0;
+    background-color: #ffffff;
+    grid-gap: 25px;
     justify-items: center;
     align-content: space-around;
     grid-template-columns: repeat(4, 1fr);
 }
 
 .DataCardItem {
-    width: 75%;
-    height: 450px;
-    background-color: #e3f2fd;
-    border: 1px solid #d1d5db;
-    border-radius: 2em;
+    width: 85%;
+    height: 380px;
+    background-color: #f4f7fa;
+    border: 1px solid #dcdfe4;
+    border-radius: 12px;
     margin: 15px auto;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
 }
+
+.DataCardItem:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
 .DataCardUpdate {
     width: 240px;
     height: 240px;
-    background-color: #e3f2fd;
-    border: 1px solid #d1d5db;
-    border-radius: 2em;
+    background-color: #f4f7fa;
+    border: 1px solid #dcdfe4;
+    border-radius: 12px;
     margin: 20px auto;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
 img {
     width: 100%;
-    height: 70%;
+    height: 65%;
     object-fit: cover;
     object-position: top;
-    border-bottom: 1px solid #d1d5db;
-    border-radius: 1em 1em 0 0;
+    border-bottom: 2px solid #dcdfe4;
+    border-radius: 12px 12px 0 0;
 }
 
 .DataCardUpdate label {
     display: block;
-    margin: 10px 0;
+    margin: 12px 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.DataCardUpdate input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #dcdfe4;
+    margin-bottom: 12px;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
 }
 
 .DataCardUpdate button {
-    margin-top: 10px;
-    padding: 10px 20px;
+    margin-top: 15px;
+    padding: 12px 25px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .DataCardUpdate button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
+
 #btAdd {
     display: block;
-    width: 150px;
+    width: 170px;
     margin: 20px auto;
-    padding: 12px 20px;
+    padding: 14px 25px;
     background-color: #007bff;
     color: white;
     text-align: center;
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 18px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     border: none;
 }
 
@@ -96,5 +116,3 @@ img {
 #btAdd:focus {
     outline: none;
 }
-
-

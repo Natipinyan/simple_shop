@@ -1,29 +1,14 @@
 import { Link } from "react-router-dom";
+import "../css/Header.css";
 
 export default function Header() {
-    let NavStyle = {
-        display: "flex",
-        alignItems: "center",
-        padding: "10px",
-        backgroundColor: "lightblue",
-    };
-
-    let LeftLinksStyle = {
-        display: "flex",
-        gap: "15px",
-    };
-
-    let RightLinkStyle = { marginLeft: "auto" };
-
     return (
-
-            <nav style={NavStyle}>
-            <div style={LeftLinksStyle}>
-                <Link to="shopingCart">cart</Link>
-                <Link to="/">home page</Link>
+        <nav className="nav-container">
+            <div className="nav-left-links">
+                <Link to="shopingCart" className="nav-link">Cart</Link>
+                <Link to="/" className="nav-link">Home Page</Link>
             </div>
-            <Link to="/manager" style={RightLinkStyle}>manager</Link>
+            <Link to="/manager" className="nav-link nav-right">Manager</Link>
         </nav>
-
     );
 }

@@ -17,7 +17,6 @@ export function CartProvider({ children }) {
             }
         });
     };
-    //יש מוצר צוסיף סאם אין מחזיר את המוצר
 
     const removeFromCart = (Code) => {
         setCart((prevCart) => {
@@ -33,12 +32,10 @@ export function CartProvider({ children }) {
             }, []);
         });
     };
-    //אם יש יותר ממוצר אחד פחות מוחק אחד אחרת מוחק את המוצר
 
     const cartTotal = () => {
         return cart.reduce((sum, item) => sum + (Number(item.price) * item.sum), 0);
     };
-    //מחזיר את הסכום של הסל
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, cartTotal }}>

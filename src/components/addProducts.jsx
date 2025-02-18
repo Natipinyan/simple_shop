@@ -1,31 +1,22 @@
-import {Form, Link, redirect} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
-import "../css/editAndAdd.css";
-
+import { Form } from "react-router-dom";
+import "../css/AddProduct.css";
 
 export default function AddProduct() {
-    let addStyle = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        gap: "10px",
-        height: "100%",
-        width: "80%"
-    };
-
-
-
     return (
-        <Form
-            style={addStyle}
-            method="post" >
-            <label>Code:<input  className="form-tag" placeholder="code" name="Code" type="text" required/></label>
-            <label>Name:<input  className="form-tag" placeholder="name" name="Name" type="text" required/></label>
-            <label>Price:<input  className="form-tag" placeholder="price" name="price" type="number" required/></label>
-            <label>Image:<input  className="form-tag" placeholder="image" name="ImgURL" type="text" required/></label>
-            <button className="form-tag" >הוסף</button>
+        <Form className="add-form" method="post">
+            <label>Code:
+                <input className="form-tag" placeholder="code" name="Code" type="text" required />
+            </label>
+            <label>Name:
+                <input className="form-tag" placeholder="name" name="Name" type="text" required />
+            </label>
+            <label>Price:
+                <input className="form-tag" placeholder="price" name="price" type="number" required />
+            </label>
+            <label>Image:
+                <input className="form-tag" placeholder="image" name="ImgURL" type="text" required />
+            </label>
+            <button className="send">Add</button>
         </Form>
-
     );
 }

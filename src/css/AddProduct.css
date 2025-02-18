@@ -1,0 +1,34 @@
+.add-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+
+.add-form label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-tag {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-top: 5px;
+}
+
+button.send {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.send:hover {
+    background-color: #0056b3;
+}

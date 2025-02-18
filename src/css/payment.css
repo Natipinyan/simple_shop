@@ -1,0 +1,64 @@
+.payment-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 50px auto 0;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary {
+    margin-top: 40px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.order-summary h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.order-summary ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-summary li {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.order-summary li p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.order-summary li strong {
+    font-size: 1.1em;
+    color: #007bff;
+}
+
+.order-summary li ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.order-summary li ul li {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #777;
+}
+
+.order-summary li ul li b {
+    font-weight: bold;
+    color: #333;
+}

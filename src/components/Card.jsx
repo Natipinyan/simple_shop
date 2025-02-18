@@ -42,7 +42,7 @@ function CreateCard({ product }) {
 
             {showSuccessMessage && (
                 <div className="successMessage">
-                    המוצר התווסף בהצלחה
+                    Item added successfully
                 </div>
             )}
         </div>

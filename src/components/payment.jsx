@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useCart } from "../services/cartContext";
+import "../css/payment.css"
 
 export default function Payment() {
     const { cart, cartTotal } = useCart();
     const [customerId, setCustomerId] = useState("");
     const [shippingAddress, setShippingAddress] = useState("");
+    const [orders, setOrders] = useState([]);
 
     const handlePayment = () => {
         if (!customerId || !shippingAddress) {
@@ -12,17 +14,21 @@ export default function Payment() {
             return;
         }
 
-        alert(
-            `Processing payment for:
-            Customer ID: ${customerId}
-            Shipping Address: ${shippingAddress}
-            Total: $${cartTotal().toFixed(2)}
-            Cart: ${JSON.stringify(cart, null, 2)}`
-        );
+        const newOrder = {
+            customerId,
+            shippingAddress,
+            total: cartTotal().toFixed(2),
+            cartDetails: cart,
+        };
+
+        setOrders((prevOrders) => [...prevOrders, newOrder]);
+
+        setCustomerId("");
+        setShippingAddress("");
     };
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div className="payment-container">
             <h2>Payment Page</h2>
 
             <div>
@@ -60,6 +66,30 @@ export default function Payment() {
             <div style={{ marginTop: "20px", textAlign: "center" }}>
                 <button onClick={handlePayment}>Confirm Payment</button>
             </div>
+
+            {orders.length > 0 && (
+                <div className="order-summary">
+                    <h3>Order History</h3>
+                    <ul>
+                        {orders.map((order, index) => (
+                            <li key={index}>
+                                <strong>Order #{index + 1}</strong>
+                                <p>Customer ID: {order.customerId}</p>
+                                <p>Shipping Address: {order.shippingAddress}</p>
+                                <p>Total: ${order.total}</p>
+                                <p>Cart Details:</p>
+                                <ul>
+                                    {order.cartDetails.map((product) => (
+                                        <li key={product.Code}>
+                                            {product.Name} - ${product.price} x {product.sum}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 }

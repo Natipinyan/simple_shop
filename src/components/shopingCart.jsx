@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../services/cartContext";
 import get_URL from "../services/GetURL";
-
+import "../css/shoppingCart.css";
 
 export default function ShoppingCart() {
     const { cart, removeFromCart, cartTotal } = useCart();
 
     return (
-        <div style={{ width: "75%", margin: "0 auto", padding: "10%" }}>
-            <table border="1" style={{ width: "100%", textAlign: "center" }}>
+        <div className="shopping-cart-container">
+            <table className="cart-table">
                 <thead>
                 <tr>
                     <th>Image</th>
@@ -24,29 +24,29 @@ export default function ShoppingCart() {
                         <td>
                             <img
                                 src={get_URL(product.ImgURL)}
-                                style={{
-                                    width: "80px",
-                                    height: "80px",
-                                    objectFit: "cover",
-                                    borderRadius: "8px"
-                                }}
+                                className="product-image"
+                                alt={product.Name}
                             />
                         </td>
                         <td>{product.Name}</td>
                         <td>${product.price}</td>
                         <td>{product.sum}</td>
                         <td>
-                            <button onClick={() => removeFromCart(product.Code)}>Delete</button>
+                            <button className="remove-button" onClick={() => removeFromCart(product.Code)}>
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <div className="cart-total">
                 <strong>Total: ${cartTotal()}</strong>
             </div>
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
-                <Link className="linkToRegister" to="/payment">עבור לקופה</Link>
+            <div className="checkout-link">
+                <Link to="/payment">
+                    <button className="checkout-button">Proceed to Checkout</button>
+                </Link>
             </div>
         </div>
     );
