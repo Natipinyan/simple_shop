@@ -12,13 +12,13 @@ export default function ManagerPage() {
         <section className="allPageManager">
             <div className="left">
                 <div className="top">
-                     <button>
+                     <button className="button-link" >
                          <Link to="/manager">Add</Link>
                      </button>
                 </div>
 
                 <div className="under">
-                    <button  >
+                    <button className="button-link" >
                         <Link to={`/manager/edit/${productCode}`}>Edit</Link>
                     </button>
                     <input
