@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
-import "../css/editAndAdd.css";
+import "../css/edit.css";
 
 export default function EditProduct({ products }) {
     const [currentProduct, setCurrentProduct] = useState({});
